@@ -1,7 +1,7 @@
 /****************************************************************************
  * MIT License
  *
- * Copyright (c) 2019 İsmail Çağdaş Yılmaz
+ * Copyright (c) 2024 İsmail Çağdaş Yılmaz
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,15 +31,17 @@ namespace Vocabulary
     {
         settings_ = std::make_shared<restbed::Settings>();
 
+        /*
         auto ssl_settings = std::make_shared<restbed::SSLSettings>();
         ssl_settings->set_http_disabled(true);
 
-        ssl_settings->set_private_key( restbed::Uri("file:///etc/letsencrypt/live/ismailcagdasyilmaz.com/privkey.pem"));
+        ssl_settings->set_private_key( restbed::Uri("file:///etc/letsencrypt/live/./privkey.pem"));
 
-        ssl_settings->set_certificate( restbed::Uri("file:///etc/letsencrypt/live/ismailcagdasyilma.com/fullchain.pem"));
+        ssl_settings->set_certificate( restbed::Uri("file:///etc/letsencrypt/live/./fullchain.pem"));
 
-        ssl_settings->set_temporary_diffie_hellman(restbed::Uri("file:///home/cagdasyilmazhb/CLionProjects/Vocabulary_Backend/build/dh2048.pem"));
+        ssl_settings->set_temporary_diffie_hellman(restbed::Uri("file:///"));
         settings_->set_ssl_settings(ssl_settings);
+         */
 
         settings_->set_port(5173);
         settings_->set_worker_limit(std::thread::hardware_concurrency());
