@@ -23,8 +23,7 @@
  *
  ****************************************************************************/
 
-#include "VocabularyService.h"
-
+#include "../../../Vocabulary/include/Core/VocabularyService.h"
 #include <utility>
 
 namespace Vocabulary

@@ -29,9 +29,9 @@
 #include <nlohmann/json.hpp>
 
 #include "Logger.h"
-#include "../../../Vocabulary/json_singletons/JSONDatabaseVocabulary.h"
-#include "../../../Vocabulary/json_singletons/JSONDatabaseUser.h"
-#include "../../../Vocabulary/sqlite_database/VocabularyDatabaseSQLite.h"
+#include "../../../Vocabulary/include/json_singletons/JSONDatabaseVocabulary.h"
+#include "../../../Vocabulary/include/json_singletons/JSONDatabaseUser.h"
+#include "../../../Vocabulary/include/sqlite_database/VocabularyDatabaseSQLite.h"
 
 #include <string>
 #include <map>

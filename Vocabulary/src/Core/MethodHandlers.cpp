@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "MethodHandlers.h"
+#include "../../../Vocabulary/include/Core/MethodHandlers.h"
 
 namespace Vocabulary
 {

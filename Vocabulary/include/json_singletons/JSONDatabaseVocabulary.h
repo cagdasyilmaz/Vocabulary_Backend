@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "../../Vocabulary/src/Core/Logger.h"
+#include "../../../Vocabulary/include/Core/Logger.h"
 #include <nlohmann/json.hpp>
 
 #include <iostream>

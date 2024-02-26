@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "VocabularyResourceFactory.h"
+#include "../../../Vocabulary/include/Core/VocabularyResourceFactory.h"
 
 namespace Vocabulary
 {

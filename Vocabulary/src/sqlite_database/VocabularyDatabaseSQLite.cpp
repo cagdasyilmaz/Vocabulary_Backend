@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "VocabularyDatabaseSQLite.h"
+#include "../../../Vocabulary/include/sqlite_database/VocabularyDatabaseSQLite.h"
 
 namespace Vocabulary
 {

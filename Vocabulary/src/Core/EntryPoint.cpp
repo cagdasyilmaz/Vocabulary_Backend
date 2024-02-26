@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "Base.h"
+#include "../../../Vocabulary/include/Core/Base.h"
 
 using namespace Vocabulary;
 

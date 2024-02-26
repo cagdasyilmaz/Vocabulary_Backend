@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "JSONDatabaseUser.h"
+#include "../../../Vocabulary/include/json_singletons/JSONDatabaseUser.h"
 
 namespace Vocabulary
 {

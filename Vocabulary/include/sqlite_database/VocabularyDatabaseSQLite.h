@@ -23,33 +23,37 @@
  *
  ****************************************************************************/
 
-#include "VocabularyServiceSettingsFactory.h"
+#pragma once
+
+#include "../../../Vocabulary/include/Core/Logger.h"
+
+#include <sqlite3.h>
+#include <vector>
+#include <string>
+#include <iostream>
+
 
 namespace Vocabulary
 {
-    VocabularyServiceSettingsFactory::VocabularyServiceSettingsFactory()
+    class VocabularyDatabaseSQLite
     {
-        settings_ = std::make_shared<restbed::Settings>();
+    public:
+        static VocabularyDatabaseSQLite& getInstance() {
+            static VocabularyDatabaseSQLite instance;
+            return instance;
+        }
 
-        /*
-        auto ssl_settings = std::make_shared<restbed::SSLSettings>();
-        ssl_settings->set_http_disabled(true);
+        std::vector<int> get_word_indexes(const std::string&, const std::string&);
 
-        ssl_settings->set_private_key( restbed::Uri("file:///etc/letsencrypt/live/./privkey.pem"));
+        void update(const std::string&, const std::string&, const std::string&, size_t);
 
-        ssl_settings->set_certificate( restbed::Uri("file:///etc/letsencrypt/live/./fullchain.pem"));
+    private:
+        VocabularyDatabaseSQLite();
 
-        ssl_settings->set_temporary_diffie_hellman(restbed::Uri("file:///"));
-        settings_->set_ssl_settings(ssl_settings);
-         */
+        ~VocabularyDatabaseSQLite();
 
-        settings_->set_port(5173);
-        settings_->set_worker_limit(std::thread::hardware_concurrency());
-        settings_->set_default_header("Connection", "keep-alive");
-    }
+        sqlite3* db;
+    };
 
-    std::shared_ptr<restbed::Settings> VocabularyServiceSettingsFactory::get_settings() const
-    {
-        return settings_;
-    }
+    void initialize_SQLite_Database();
 }

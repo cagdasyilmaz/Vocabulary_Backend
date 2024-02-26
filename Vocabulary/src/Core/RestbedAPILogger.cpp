@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "RestbedAPILogger.h"
+#include "../../../Vocabulary/include/Core/RestbedAPILogger.h"
 
 namespace Vocabulary {
     void SyslogLogger::stop( void )

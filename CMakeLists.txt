@@ -41,18 +41,16 @@ endif()
 
 include(FetchContent)
 
-include_directories(/Vocabulary/src/Core)
-include_directories(/Vocabulary/src/json_singletons)
+include_directories(/Vocabulary/include)
+include_directories(/Vocabulary/src)
 
 find_package(Threads REQUIRED)
 
-set(CommonLibs restbed ssl crypt)
+set(CommonLibs restbed ssl crypt sqlite3 spdlog::spdlog Threads::Threads)
 
-set(SOURCES Vocabulary/src/Core/EntryPoint.cpp Vocabulary/src/Core/Logger.cpp Vocabulary/src/Core/RestbedAPILogger.cpp
-            Vocabulary/src/Core/MethodHandlers.cpp Vocabulary/src/Core/VocabularyServiceSettingsFactory.cpp
-            Vocabulary/src/Core/VocabularyResourceFactory.cpp Vocabulary/src/Core/VocabularyService.cpp
-            Vocabulary/json_singletons/JSONDatabaseVocabulary.cpp Vocabulary/json_singletons/JSONDatabaseUser.cpp
-            Vocabulary/sqlite_database/VocabularyDatabaseSQLite.cpp)
+file(GLOB SOURCES Vocabulary/src/Core/*.cpp
+                  Vocabulary/src/json_singletons/*.cpp
+                  Vocabulary/src/sqlite_database/*.cpp)
 
 add_executable(Vocabulary_Backend ${SOURCES})
-target_link_libraries(Vocabulary_Backend PRIVATE spdlog::spdlog ${CommonLibs} sqlite3 Threads::Threads)
+target_link_libraries(Vocabulary_Backend PRIVATE ${CommonLibs})

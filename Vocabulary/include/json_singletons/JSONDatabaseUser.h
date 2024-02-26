@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include "../../Vocabulary/src/Core/Logger.h"
-#include "../../Vocabulary/sqlite_database/VocabularyDatabaseSQLite.h"
+#include "../../../Vocabulary/include/Core/Logger.h"
+#include "../../../Vocabulary/include/sqlite_database/VocabularyDatabaseSQLite.h"
 #include <nlohmann/json.hpp>
 
 #include <fstream>

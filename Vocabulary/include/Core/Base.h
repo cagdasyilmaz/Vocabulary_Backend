@@ -48,8 +48,7 @@
 #define VOCABULARY_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 namespace Vocabulary {
-
-
+    
     /*
     template<typename T>
     using Scope = std::unique_ptr<T>;
@@ -75,9 +74,9 @@ namespace Vocabulary {
 #include "VocabularyResourceFactory.h"
 #include "VocabularyServiceSettingsFactory.h"
 #include "VocabularyService.h"
-#include "../../../Vocabulary/json_singletons/JSONDatabaseVocabulary.h"
-#include "../../../Vocabulary/json_singletons/JSONDatabaseUser.h"
-#include "../../../Vocabulary/sqlite_database/VocabularyDatabaseSQLite.h"
+#include "../../../Vocabulary/include/json_singletons/JSONDatabaseVocabulary.h"
+#include "../../../Vocabulary/include/json_singletons/JSONDatabaseUser.h"
+#include "../../../Vocabulary/include/sqlite_database/VocabularyDatabaseSQLite.h"
 
 
 

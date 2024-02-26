@@ -23,7 +23,7 @@
  *
  ****************************************************************************/
 
-#include "VocabularyServiceSettingsFactory.h"
+#include "../../../Vocabulary/include/Core/VocabularyServiceSettingsFactory.h"
 
 namespace Vocabulary
 {
