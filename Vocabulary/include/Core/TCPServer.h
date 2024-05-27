@@ -23,36 +23,27 @@
  *
  ****************************************************************************/
 
-#include "../../../Vocabulary/include/Core/Base.h"
+#pragma once
 
-using namespace Vocabulary;
+#include <boost/asio.hpp>
+#include <thread>
+#include <atomic>
+#include <memory>
+#include <iostream>
 
-int main(int argc, char* argv[])
-{
-    /// Initialize the Logger for the command-line and the filesystem
-    Vocabulary::Logger::init();
+class TCPServer {
+public:
+    TCPServer(unsigned short port);
+    ~TCPServer();
+    void start();
+    void stop();
 
-    /// Initialize SQLite Database For User Operatation
-    initialize_SQLite_Database();
+private:
+    void do_accept();
+    void handle_client(std::shared_ptr<boost::asio::ip::tcp::socket> socket);
 
-    /// Initialize JSON Databases for Vocabulary Classes and
-    initialize_JSON_Vocabulary_Classes();
-    initialize_JSON_User_Class();
-
-    auto vocabulary_resource_factory = std::make_shared<VocabularyResourceFactory>();
-    auto vocabulary_service_settings_factory = std::make_shared<VocabularyServiceSettingsFactory>();
-    VocabularyService vocabulary_service {vocabulary_resource_factory, vocabulary_service_settings_factory};
-
-    try {
-        //vocabulary_service.start();
-        VOCABULARY_CORE_INFO("WEB service initialized.");
-        vocabulary_service.start();
-    } catch(const std::exception& e)
-    {
-        VOCABULARY_CORE_ERROR("WEB service not initialized.");
-        VOCABULARY_CORE_ERROR(e.what());
-    }
-
-    VOCABULARY_CORE_INFO("The program stopped.");
-    return 0;
-}
+    boost::asio::io_context io_context_;
+    boost::asio::ip::tcp::acceptor acceptor_;
+    std::thread server_thread_;
+    std::atomic<bool> running_;
+};

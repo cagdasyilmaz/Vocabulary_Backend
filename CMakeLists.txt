@@ -48,9 +48,11 @@ find_package(Threads REQUIRED)
 
 set(CommonLibs restbed ssl crypt sqlite3 spdlog::spdlog Threads::Threads)
 
+find_package(Boost 1.82 REQUIRED COMPONENTS system)
+
 file(GLOB SOURCES Vocabulary/src/Core/*.cpp
                   Vocabulary/src/json_singletons/*.cpp
                   Vocabulary/src/sqlite_database/*.cpp)
 
 add_executable(Vocabulary_Backend ${SOURCES})
-target_link_libraries(Vocabulary_Backend PRIVATE ${CommonLibs})
+target_link_libraries(Vocabulary_Backend PRIVATE ${CommonLibs} ${Boost_LIBRARIES})
