@@ -25,10 +25,6 @@
 
 #include "../../../Vocabulary/include/Core/Logger.h"
 
-#include <spdlog/sinks/stdout_color_sinks.h>
-//#include <spdlog/sinks/basic_file_sink.h>
-#include <spdlog/sinks/rotating_file_sink.h>
-
 namespace Vocabulary {
 
     std::shared_ptr<spdlog::logger> Logger::s_CoreLogger;
@@ -40,14 +36,28 @@ namespace Vocabulary {
 
     void Logger::init()
     {
+        static TCPServer tcp_server(51400);
+
         std::vector<spdlog::sink_ptr> logSinks;
         logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
         logSinks.emplace_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>("Logs/Vocabulary.log", max_size, max_files, true));
 
-        //logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("Logs/Vocabulary.log", true));
+        spdlog::sinks::tcp_sink_config tcp_sink_config{"127.0.0.1", 51400};
+        tcp_sink_config.lazy_connect = false;
+
+        try {
+            logSinks.emplace_back(std::make_shared<spdlog::sinks::tcp_sink_mt>(tcp_sink_config));
+        } catch (const spdlog::spdlog_ex& ex) {
+            std::cerr << "Log initialization failed: " << ex.what() << std::endl;
+        }
 
         logSinks[0]->set_pattern("[%d/%m/%Y %T.%e] [PID: %P] [%n] [%^%l%$]: %v");
         logSinks[1]->set_pattern("[%d/%m/%Y %T.%e] [PID: %P] [%n] [%l]: %v");
+
+        //logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("Logs/Vocabulary.log", true));
+        if (logSinks.size() > 2) {
+            logSinks[2]->set_pattern("[%d/%m/%Y %T.%e] [PID: %P] [%n] [%l]: %v");
+        }
 
         s_CoreLogger = std::make_shared<spdlog::logger>("CORE", begin(logSinks), end(logSinks));
         spdlog::register_logger(s_CoreLogger);

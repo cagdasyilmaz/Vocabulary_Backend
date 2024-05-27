@@ -26,12 +26,15 @@
 #pragma once
 
 #include "Base.h"
+#include "TCPServer.h"
 
 // This ignores all warnings raised inside External headers
 #pragma warning(push, 0)
 
 #include <spdlog/spdlog.h>
-//#include <spdlog/fmt/ostr.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/rotating_file_sink.h>
+#include <spdlog/sinks/tcp_sink.h>
 
 #pragma warning(pop)
 
@@ -44,7 +47,9 @@ namespace Vocabulary {
 
         static std::shared_ptr<spdlog::logger>& getCoreLogger() { return s_CoreLogger; }
         static std::shared_ptr<spdlog::logger>& getClientLogger() { return s_ClientLogger; }
-        
+
+        ~Logger();
+
     private:
         static std::shared_ptr<spdlog::logger> s_CoreLogger;
         static std::shared_ptr<spdlog::logger> s_ClientLogger;
@@ -96,14 +101,3 @@ namespace Vocabulary {
 #ifndef VOCABULARY_CLIENT_CRITICAL
 #define VOCABULARY_CLIENT_CRITICAL(...)    ::Vocabulary::Logger::getClientLogger()->critical(__VA_ARGS__)
 #endif
-
-
-
-
-
-
-
-
-
-
-
