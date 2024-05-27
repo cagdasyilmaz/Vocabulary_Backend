@@ -56,6 +56,3 @@ int main(int argc, char* argv[])
     VOCABULARY_CORE_INFO("The program stopped.");
     return 0;
 }
-
-
-
