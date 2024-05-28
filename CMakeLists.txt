@@ -3,7 +3,7 @@ project(Vocabulary_Backend)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_COMPILER "/usr/bin/g++-11")
+#set(CMAKE_CXX_COMPILER "/usr/bin/g++-11")
 #set(CMAKE_CXX_COMPILER "/usr/bin/clang++-12")
 #set(CMAKE_CXX_COMPILER "/opt/intel/oneapi/compiler/2023.1.0/linux/bin/icpx")
 
@@ -46,13 +46,20 @@ include_directories(/Vocabulary/src)
 
 find_package(Threads REQUIRED)
 
-set(CommonLibs restbed ssl crypt sqlite3 spdlog::spdlog Threads::Threads)
-
 find_package(Boost 1.82 REQUIRED COMPONENTS system)
 
-file(GLOB SOURCES Vocabulary/src/Core/*.cpp
-                  Vocabulary/src/json_singletons/*.cpp
-                  Vocabulary/src/sqlite_database/*.cpp)
+find_package(PcapPlusPlus REQUIRED)
 
-add_executable(Vocabulary_Backend ${SOURCES})
+set(CommonLibs restbed ssl crypt sqlite3 spdlog::spdlog Threads::Threads)
+
+file(GLOB VOCABULARY_SOURCES Vocabulary/src/Core/*.cpp
+                             Vocabulary/src/json_singletons/*.cpp
+                             Vocabulary/src/sqlite_database/*.cpp)
+
+file(GLOB LOG_MONITOR_SOURCES LogMonitor/LogMonitor.cpp)
+
+add_executable(Vocabulary_Backend ${VOCABULARY_SOURCES})
+add_executable(Log_Monitor ${LOG_MONITOR_SOURCES})
+
 target_link_libraries(Vocabulary_Backend PRIVATE ${CommonLibs} ${Boost_LIBRARIES})
+target_link_libraries(Log_Monitor PUBLIC PcapPlusPlus::Pcap++)
